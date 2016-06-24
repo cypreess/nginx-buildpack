@@ -21,3 +21,9 @@ else
 	echo '-----> nginx-buildpack: Custom config found in app/config.'
 fi
 exit 0
+
+echo '-----> nginx-buildpack: Running custom build script.'
+
+if [[ -x "$1/.build.sh" ]]; then
+  $1/.build.sh
+fi
