@@ -9,6 +9,7 @@ erb config/nginx.conf.erb > config/nginx.conf
 
 
 echo 'buildpack=nginx at=nginx-config'
+bin/nginx -V
 cat config/nginx.conf
 
 n=1
