@@ -12,11 +12,13 @@
 NGINX_VERSION=${NGINX_VERSION-1.10.0}
 PCRE_VERSION=${PCRE_VERSION-8.38}
 HEADERS_MORE_VERSION=${HEADERS_MORE_VERSION-0.29}
+NGX_DEVEL_KIT_VERSION=${NGX_DEVEL_KIT_VERSION-0.3.0}
 SET_MISC_NGINX_MODULE_VERSION=${SET_MISC_NGINX_MODULE_VERSION-0.31}
 
 nginx_tarball_url=http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
 pcre_tarball_url=https://sourceforge.net/projects/pcre/files/pcre/${PCRE_VERSION}/pcre-${PCRE_VERSION}.tar.bz2
 headers_more_nginx_module_url=https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz
+ngx_devel_kit_url=https://github.com/simpl/ngx_devel_kit/archive/v${NGX_DEVEL_KIT_VERSION}.tar.gz
 set_misc_nginx_module_url=https://github.com/openresty/set-misc-nginx-module/archive/v${SET_MISC_NGINX_MODULE_VERSION}.tar.gz
 
 temp_dir=$(mktemp -d /tmp/nginx.XXXXXXXXXX)
@@ -37,7 +39,10 @@ echo "Downloading $pcre_tarball_url"
 echo "Downloading $headers_more_nginx_module_url"
 (cd nginx-${NGINX_VERSION} && curl -L $headers_more_nginx_module_url | tar xvz )
 
-echo "Downloading set_misc_nginx_module_url"
+echo "Downloading $ngx_devel_kit_url"
+(cd nginx-${NGINX_VERSION} && curl -L $ngx_devel_kit_url | tar xvz )
+
+echo "Downloading $set_misc_nginx_module_url"
 (cd nginx-${NGINX_VERSION} && curl -L $set_misc_nginx_module_url | tar xvz )
 
 (
@@ -47,6 +52,7 @@ echo "Downloading set_misc_nginx_module_url"
 		--with-pcre=pcre-${PCRE_VERSION} \
 		--prefix=/tmp/nginx \
 		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
+		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/ngx_devel_kit-${NGX_DEVEL_KIT_VERSION} \
    	--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/set-misc-nginx-module-${SET_MISC_NGINX_MODULE_VERSION}
 	make install
 )
