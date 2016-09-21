@@ -46,7 +46,7 @@ echo "Downloading set_misc_nginx_module_url"
     --with-http_ssl_module \
 		--with-pcre=pcre-${PCRE_VERSION} \
 		--prefix=/tmp/nginx \
-		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}
+		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION} \
    	--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/set-misc-nginx-module-${SET_MISC_NGINX_MODULE_VERSION}
 	make install
 )
