@@ -20,10 +20,11 @@ if [[ ! -f $1/config/nginx.conf.erb ]]; then
 else
 	echo '-----> nginx-buildpack: Custom config found in app/config.'
 fi
-exit 0
 
 echo '-----> nginx-buildpack: Running custom build script.'
 
 if [[ -x "$1/.build.sh" ]]; then
   cd $1 && $1/.build.sh
 fi
+
+exit 0
